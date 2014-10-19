@@ -1,0 +1,88 @@
+<!doctype html>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listit</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <%= yield(:head) %>
+
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+  <script type="text/javascript">
+
+
+    $(document).ready(function(){
+      $(".checkbox").change(function() {
+        if(this.checked) {
+          //alert('we checked!');
+          // get the vale of this id, like 'ckeckbox_23',
+          // use the number to:
+          //   - save the Item.id.active = false
+          //   - change the #item_23 to light grey, or lower opacity 
+          $('#item_3').css("opacity",0.5);
+          }
+          else {
+            //alert('we unchecked');
+          }
+      });
+
+
+      // alert('document ready');
+      $('#items').sortable({
+        axis: 'y',
+        dropOnEmpty: false,
+        handle: '.handle',
+        cursor: 'crosshair',
+        items: 'li',
+        opacity: 0.4,
+        scroll: false,
+        
+        update: function(){
+          // alert('what what?');
+          $.ajax({
+          type: 'post',
+          data: $('#items').sortable('serialize'),
+          dataType: 'script',
+          complete: function(request){
+          // $('#items').effect('highlight');
+        },
+        url: '/users/sort'})
+        }
+
+      });
+    });
+  </script>
+  <%= yield :javascript %>
+
+  </head>
+
+  <body>
+    <header>
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="container">
+            <%= render 'layouts/navigation' %>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div id="main" role="main">
+      <div class="container">
+         <div class="row">
+          <div class="span12">
+            <%= render 'layouts/messages' %>
+            <%= yield %>
+          </div>
+        </div>
+        <footer>
+        </footer>
+      </div> <!--! end of .container -->
+    </div> <!--! end of #main -->
+  </body>
+</html>

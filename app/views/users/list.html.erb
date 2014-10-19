@@ -1,0 +1,30 @@
+
+<ul id='items'> 
+
+  <% @items.each do |item| %>
+    <li id="item_<%= item.id %>" > 
+      <div id="item-box" class="rounded-corners handle">
+        <span id="item-check" class="checkbox-inline">
+          <input class="checkbox" id="checkbox_<%= item.id %>" type="checkbox" name="vehicle" value="Bike" >
+        </span>
+        <span id="item-name">
+          <%= item.body %>
+        </span>
+        <span id="item-right">
+          <span id="item-sms">
+            SMS: Wednesday, Dec 24 5:25 PM
+          </span>
+          <span id="item-edit">
+          <span class="icon-pencil"></span>
+          </span>
+          <span id="item-remove">
+            <%= link_to(root_path) do %>
+              <span class='icon-remove'></span>
+            <% end %>
+          </span>
+        </span>
+      </div>
+    </li>
+  <% end %>
+
+</ul>
