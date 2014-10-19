@@ -1,4 +1,4 @@
-class UsersController < ActiveRecord::ApplicationController
+class UsersController < ApplicationController
 
 def index
 
