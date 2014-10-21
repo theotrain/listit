@@ -11,7 +11,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'bootstrap-sass', '~> 2.3.2.0'
 gem "rest-client", "~> 1.6.7"
-gem 'sucker_punch', '~> 1.0'
+# gem 'sucker_punch', '~> 1.0'
 gem 'clockwork', require: false
 gem 'delayed_job_active_record'
 #gem "acts_as_list"
