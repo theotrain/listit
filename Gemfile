@@ -3,7 +3,7 @@ ruby '2.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.5'
-gem 'unicorn'
+# gem 'unicorn'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -45,6 +45,8 @@ group :development do
 end
 
 group :production do
+  gem 'unicorn'
+  # gem 'unicorn-worker-killer'
   gem 'pg'
   gem 'rails_12factor'
 end
