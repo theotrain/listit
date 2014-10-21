@@ -46,7 +46,7 @@ end
 
 group :production do
   gem 'unicorn'
-  # gem 'unicorn-worker-killer'
+  gem 'unicorn-worker-killer'
   gem 'pg'
   gem 'rails_12factor'
 end
