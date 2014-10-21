@@ -1,10 +1,12 @@
 # script/workers_schedule.rb
+require File.expand_path('../../config/boot',        __FILE__)
+require File.expand_path('../../config/environment', __FILE__)
 
 require 'clockwork'
 
 # Require the full rails environment if needed
-require './config/boot'
-require './config/environment'
+# require './config/boot'
+# require './config/environment'
 
 include Clockwork
 
