@@ -15,7 +15,7 @@ def send_simple_message
   :from => "Mailgun Sandbox <postmaster@sandboxe4171dd1b23b440ab9bf21a4b51cb487.mailgun.org>",
   :to => "owen <owen.sacafotos@gmail.com>",
   :subject => "Hello owen",
-  :text => "first email with Heroku/Mailgun!  sent at #{ Time.now }"
+  :text => "first email with Heroku/Mailgun!  sent at #{ Time.nowTime.now.in_time_zone("Pacific Time (US & Canada)") }"
 end
 
 def list
