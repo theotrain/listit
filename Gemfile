@@ -15,6 +15,8 @@ gem "rest-client", "~> 1.6.7"
 # gem 'sucker_punch', '~> 1.0'
 gem 'clockwork', require: false
 gem 'delayed_job_active_record'
+
+# gem 'will_pickdate', '~> 1.0.0'
 #gem "acts_as_list"
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
@@ -31,7 +33,11 @@ gem 'jbuilder', '~> 2.0'
 # gem 'spring',        group: :development
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '=3.0.0'
+#gem 'bcrypt-ruby', '=3.0.0'
+gem 'bcrypt-ruby', '3.1.2'
+gem 'jquery-mousewheel-rails', '~> 0.0.9'  #for will_pickdate
+
+gem 'mailgun-ruby', '~>1.0.2', require: 'mailgun'
 
 
 group :doc do

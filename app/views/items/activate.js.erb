@@ -1,0 +1,5 @@
+<% if @item.active %>
+  $('#item_' + <%= @item.id %> ).css("opacity",1);
+<% else %>
+  $('#item_' + <%= @item.id %> ).css("opacity",0.5);
+<% end %>

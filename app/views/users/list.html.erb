@@ -1,18 +1,18 @@
 <% content_for :javascript do %>
   <%= javascript_tag do %>
+    function changeOpacity(id) {
+      $('#item_'+id).css("opacity",0.5);
+    }
+
     $(document).ready(function(){
+
       $(".checkbox").change(function() {
-        if(this.checked) {
-          //alert('we checked!');
-          // get the vale of this id, like 'ckeckbox_23',
-          // use the number to:
-          //   - save the Item.id.active = false
-          //   - change the #item_23 to light grey, or lower opacity 
-          $('#item_3').css("opacity",0.5);
-          }
-          else {
-            //alert('we unchecked');
-          }
+
+          $.ajax({
+             url: '../../items/'+ this.id.replace("checkbox_","") + '/activate',
+             type: 'POST',
+             data: { remote: true },
+          });
       });
 
 
@@ -49,26 +49,43 @@
     <li id="item_<%= item.id %>" > 
       <div id="item-box" class="rounded-corners handle">
         <span id="item-check" class="checkbox-inline">
-          <input class="checkbox" id="checkbox_<%= item.id %>" type="checkbox" name="vehicle" value="Bike" >
+          <input class="checkbox" id="checkbox_<%= item.id %>" type="checkbox" name="activate_toggle" title="Mark as done" <% if !item.active %>checked<% end %> >
         </span>
         <span id="item-name">
           <%= item.body %>
         </span>
         <span id="item-right">
-          <span id="item-sms">
-            SMS: Wednesday, Dec 24 5:25 PM
+          <% if !item.sms_time.blank? %>
+            <% if !item.sms_sent.blank? && item.sms_sent %>
+              <span id="item-sms">
+                <span class="grey">SMS:</span> Sent
+              </span>
+            <% else %>
+              <span id="item-sms">
+                <span class="grey">SMS:</span> <%= fix_datetime(item.sms_time) %>
+              </span>
+            <% end %>
+          <% end %>
+          <span id="item-edit" title="Edit" >
+            <%= link_to edit_item_path(item) do %>
+              <span class="icon-pencil"></span>
+            <% end %>
           </span>
-          <span id="item-edit">
-          <span class="icon-pencil"></span>
-          </span>
-          <span id="item-remove">
+          <span id="item-remove" title="Delete" >
             <%= link_to(root_path) do %>
               <span class='icon-remove'></span>
             <% end %>
           </span>
+          <% if !item.active %>
+            <script type="text/javascript">
+              changeOpacity(<%= item.id %>);
+            </script>
+          <% end %>
+
         </span>
       </div>
     </li>
   <% end %>
 
 </ul>
+

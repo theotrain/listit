@@ -1,0 +1,67 @@
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    
+    $(document).ready(function(){
+      $('#hideMe').html(" (time: "+jstz.determine().name().replace('_',' ')+")");
+      document.getElementById("offset_value").value = (new Date().getTimezoneOffset()/60) * -1;
+      //var timezone = jstz.determine();
+      //alert(timezone.name() + ' ' + new Date().getTimezoneOffset()/60 + ' whatwhat?');
+      //d = new Date();
+      //alert(new Date().addHours(-7));
+      //alert(new Date(new Date().getTime() - (1000*60*60*4)));
+      $(".hiddenInput").hide();
+      <% if @item.sms_time != nil %>
+        $('.showHideCheck').prop('checked', true);
+        $(".hiddenInput").show();
+      <% end %>      
+
+      jQuery('#datetimepicker').datetimepicker({
+        format:'D M d Y H:i',
+        formatTime: 'g:i a',
+        //value: 'Select Date and Time'
+        <% if @item.sms_time != nil %>
+        value: new Date ('<%= @item.sms_time.to_datetime %>'),
+        onChangeDateTime:function(current_time,$input){
+          document.getElementById("onChangeDate").value = 'true';
+        }
+        <% end %>
+        //value: new Date
+      });
+
+      
+      $(".showHideCheck").on("change", function() {
+          if($(this).is(":checked")) {
+            $(".hiddenInput").show();
+          } else {
+            $(".hiddenInput").hide();
+          }
+      });
+
+    });
+  <% end %>
+<% end %>
+
+<%= render "shared/errors", obj: @item %>
+
+<%= form_for @item do |f| %>
+  <div id='item-form'>
+    <%= f.label :body, 'Description' %>
+    <%= f.text_area :body, { style: "width:400px; height:60px;", maxlength: "140"} %>
+  </div>
+  <div id='item-form'>
+    <%= check_box(:checkbox, :checked, { class: 'showHideCheck', style: "display: inline-block;"}) %>
+    <%= f.label :checkbox, 'Send me a text reminder', style: "display: inline-block;" %>
+  </div>
+  <div class='hiddenInput' id='item-form' style="display: none;">
+    <%= f.label :sms_time, 'Remind me at' %>
+    <%= text_field_tag :sms_time, '', { id: "datetimepicker", style: "width:300px;" } %>
+    <br/><span id="hideMe" class="grey" ></span><br/>
+  </div>
+
+  <input id="offset_value" type="hidden" name="zone_offset" value="">
+  <input id="onChangeDate" type="hidden" name="date_changed" value="false">
+  <%= f.submit 'Do it', class: 'btn btn-primary' %>
+<% end %>
+
+
+
