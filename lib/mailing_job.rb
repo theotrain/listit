@@ -11,8 +11,8 @@ class MailingJob
   end
 
   def sendEmail
-    # puts "Running DELAYED JOB at #{Time.now.in_time_zone("Pacific Time (US & Canada)")}"
-    # puts "sending BODY: #{ Item.find(item_id).body }"
+     # puts "Running DELAYED JOB at #{Time.now.in_time_zone("Pacific Time (US & Canada)")}"
+     puts "sending BODY: #{ Item.find(item_id).body }"
 
     # RestClient.post "https://api:key-d78467f903c56cbc59c84d96f21b7307"\
     # "@api.mailgun.net/v2/sandboxe4171dd1b23b440ab9bf21a4b51cb487.mailgun.org/messages",
@@ -26,7 +26,7 @@ class MailingJob
     message_params = {:from    => 'hi from listit! <postmaster@sandboxe4171dd1b23b440ab9bf21a4b51cb487.mailgun.org>',  
                       :to      => 'owen <owen.sacafotos@gmail.com>',
                       :subject => 'the really real!',
-                      :text    => "Sent w/ clockwork from mailing job!  Item body REALS #{ Item.find(item_id).body } ----- item_id passed: (#{item_id}) ----- sent at #{ Time.now.in_time_zone('Pacific Time (US & Canada)') }"}
+                      :text    => "Sent w/ clockwork from mailing job!  Item body REALS #{ Item.find(item_id).body } ----- item_id passed: (#{item_id}) ----- sent at #{ Time.now }  ----- zone offset #{ Item.find(item_id).time_zone_offset }"}
 
     # Send your message through the client
     mg_client.send_message "sandboxe4171dd1b23b440ab9bf21a4b51cb487.mailgun.org", message_params
