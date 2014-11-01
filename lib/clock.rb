@@ -28,12 +28,19 @@ handler do |job|
   end
 end
 
+
+def seconds_to_days(sec)
+  # 1 second is worth this many days = 1.0 / (60 * 60 * 24)
+  sec * (1.0/86400)
+end
+
+  
 def schedule_jobs
 
   frequency_in_seconds = 60
 
   now_time_utc = DateTime.now.utc
-  send_items = Item.where("sms_time < ? AND active = ? AND sms_sent = ?", now_time_utc + frequency_in_seconds, true, false)
+  send_items = Item.where("sms_time < ? AND active = ? AND sms_sent = ?", now_time_utc + seconds_to_days(frequency_in_seconds), true, false)
   send_items.each do |i|
     if i.sms_time.to_datetime > now_time_utc
       # schedule this item for the future
