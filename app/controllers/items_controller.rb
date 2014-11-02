@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :require_user
-  before_action :set_item, only: [:activate, :update, :edit]
-  before_action :require_item_creator, only: [:activate, :edit, :update]
+  before_action :set_item, only: [:activate, :update, :edit, :destroy]
+  before_action :require_item_creator, only: [:activate, :edit, :update, :destroy]
 
   def new
     @item = Item.new
@@ -10,6 +10,8 @@ class ItemsController < ApplicationController
   def create
     # binding.pry
     params[:checkbox][:checked] == '1' ? save_time = params[:sms_time].to_datetime.change(offset: decimal_to_time_zone(params[:zone_offset])) : save_time = nil
+
+
     @item = Item.new(user: current_user, active: true, body: params[:item][:body], 
       sms_time: save_time, sms_sent: false, position: current_user.items.count+1, time_zone_offset: params[:zone_offset])
   
@@ -42,6 +44,15 @@ class ItemsController < ApplicationController
     end
 
   end
+
+
+  def destroy
+    flash[:error] = "Item '#{@item.body}' deleted."
+    @item.destroy
+    redirect_to :back
+  end
+
+
 
   def activate
     # //toggle active status

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
-  before_action :set_user, only: [:edit, :update, :show, :list]
-  before_action :require_same_user, only: [:edit, :update, :list]
+  before_action :set_user, only: [:edit, :update, :show, :list, :show]
+  before_action :require_same_user, only: [:edit, :update, :list, :show]
 
 
   def new
@@ -18,6 +18,8 @@ class UsersController < ApplicationController
 
   def update
     # binding.pry
+    check_phone
+
     if @user.update(user_params)
       flash[:notice] = "Profile has been updated."
       redirect_to list_user_path(@user)
@@ -27,17 +29,33 @@ class UsersController < ApplicationController
   end
 
   def create
-    #binding.pry
+    # binding.pry
+    check_phone
+
     @user = User.new(user_params)
 
     if @user.save
-      flash[:notice] = "You are registered and logged in as '#{params[:user][:username]}'."
+      # flash[:notice] = "You are registered and logged in as '#{params[:user][:username]}'."
       session[:user_id] = @user.id
       redirect_to list_user_path(@user)
     else
       render :new
     end
   end
+
+  def check_phone
+    if phone_is_valid?(params[:user][:phone])
+      params[:user][:phone] = strip_phone_number(params[:user][:phone])
+    else
+      if !params[:user][:phone].blank?
+        flash[:error] = "Invalid phone number - number not saved."
+      end
+      params[:user][:phone] = ''
+    end
+  end
+
+
+
 
   def email
     send_simple_message
@@ -71,7 +89,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:username, :password, :time_zone)
+    params.require(:user).permit(:username, :password, :phone)
   end
 
   def set_user

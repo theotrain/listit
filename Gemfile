@@ -38,6 +38,7 @@ gem 'bcrypt-ruby', '3.1.2'
 gem 'jquery-mousewheel-rails', '~> 0.0.9'  #for will_pickdate
 
 gem 'mailgun-ruby', '~>1.0.2', require: 'mailgun'
+gem 'twilio-ruby', '~> 3.12'
 
 
 group :doc do

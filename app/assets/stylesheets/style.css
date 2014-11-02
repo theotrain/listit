@@ -1,3 +1,6 @@
+img {border : 0;}
+a img {outline : none;}
+
 #item-box {
   background-color: #fff;
   /*color:#333;*/
@@ -66,6 +69,7 @@ body {
   background-color: #f5f5f6;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 400;
+  /*font-size: 1.8em;*/
 }
 .handle {
 
@@ -76,6 +80,9 @@ body {
   font-weight: 400;
 }
 .grey {
+  color:#a5a5a5;
+}
+.grey a {
   color:#a5a5a5;
 }
 #thin {
@@ -97,4 +104,11 @@ body {
 }*/
 #item-form {
   margin-bottom: 15px;
+}
+#home-link {
+text-align: center;
+font-size: 1.2em;
+}
+#register-link{
+  margin-top: 20px;
 }

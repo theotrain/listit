@@ -23,4 +23,12 @@ class SessionsController < ApplicationController
     redirect_to root_path
   end
 
+  def list
+    if logged_in?
+      redirect_to list_user_path(current_user)
+    else
+      redirect_to login_path
+    end
+  end
+
 end

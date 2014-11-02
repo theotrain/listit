@@ -2,7 +2,8 @@ module Sluggable
   extend ActiveSupport::Concern
 
   included do
-    before_save :generate_slug
+    before_create :generate_slug
+    # before_save :generate_slug
     # class_attribute :slug_column
   end
 

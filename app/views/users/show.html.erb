@@ -1,0 +1,5 @@
+<%= render 'shared/content_title', title: 'Show User' %>
+
+Username: <%= @user.username %><br/>
+Phone: <%= @user.phone %> <br/><br/>
+<%= link_to 'Edit', edit_user_path(@user) %>

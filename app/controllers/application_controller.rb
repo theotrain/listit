@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user, :logged_in?, :logged_in_as_creator?
   helper_method :user_time_zone_offset, :decimal_to_time_zone
+  helper_method :current_user_has_phone
 
   def decimal_to_time_zone(deci)
     leading_sign='+'
@@ -60,6 +61,18 @@ class ApplicationController < ActionController::Base
   def ItemDeactivate
     flash[:notice] = "we got to item deactive"
     redirect_to :back
+  end
+
+  def current_user_has_phone
+    !current_user.phone.blank?
+  end
+
+  def strip_phone_number(str)
+    str.gsub(/[^0-9]/, '')
+  end
+
+  def phone_is_valid?(phone)
+    strip_phone_number(phone).length == 10
   end
 
   def user_time_zone_offset

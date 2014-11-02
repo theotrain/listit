@@ -42,7 +42,7 @@
     });
   <% end %>
 <% end %>
-
+<%= render 'shared/content_title', title: 'Hi, ' + current_user.username + '!' %>
 <ul id='items'> 
 
   <% @items.each do |item| %>
@@ -72,7 +72,7 @@
             <% end %>
           </span>
           <span id="item-remove" title="Delete" >
-            <%= link_to(root_path) do %>
+            <%= link_to item_path(item), :method => :delete do %>
               <span class='icon-remove'></span>
             <% end %>
           </span>
@@ -88,4 +88,7 @@
   <% end %>
 
 </ul>
+<%= link_to new_item_path do %>
+  <img src=<%= asset_path "add-items.gif" %> alt="add item">
+<% end %>
 

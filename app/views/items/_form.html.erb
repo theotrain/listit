@@ -46,17 +46,23 @@
 <%= form_for @item do |f| %>
   <div id='item-form'>
     <%= f.label :body, 'Description' %>
-    <%= f.text_area :body, { style: "width:400px; height:60px;", maxlength: "140"} %>
+    <%= f.text_area :body, { style: "width:400px; height:60px;", maxlength: "132"} %>
   </div>
-  <div id='item-form'>
-    <%= check_box(:checkbox, :checked, { class: 'showHideCheck', style: "display: inline-block;"}) %>
-    <%= f.label :checkbox, 'Send me a text reminder', style: "display: inline-block;" %>
-  </div>
-  <div class='hiddenInput' id='item-form' style="display: none;">
-    <%= f.label :sms_time, 'Remind me at' %>
-    <%= text_field_tag :sms_time, '', { id: "datetimepicker", style: "width:300px;" } %>
-    <br/><span id="hideMe" class="grey" ></span><br/>
-  </div>
+  <% if current_user_has_phone %>
+    <div id='item-form'>
+      <%= check_box(:checkbox, :checked, { class: 'showHideCheck', style: "display: inline-block;"}) %>
+      <%= f.label :checkbox, 'Send me a text reminder', style: "display: inline-block;" %>
+    </div>
+    <div class='hiddenInput' id='item-form' style="display: none;">
+      <%= f.label :sms_time, 'Remind me at' %>
+      <%= text_field_tag :sms_time, '', { id: "datetimepicker", style: "width:300px;" } %>
+      <br/><span id="hideMe" class="grey" ></span><br/>
+    </div>
+  <% else %>
+    <div id='item-form'>
+      Can't schedule reminders. No valid phone number in <%= link_to 'user settings', edit_user_path(current_user) %>.
+    </div>
+  <% end %>
 
   <input id="offset_value" type="hidden" name="zone_offset" value="">
   <input id="onChangeDate" type="hidden" name="date_changed" value="false">

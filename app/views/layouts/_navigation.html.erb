@@ -2,7 +2,7 @@
 
 <ul class="nav navbar-nav">
   <li>
-    <%= link_to "Listit!", root_path, :class => 'brand' %>
+    <%= link_to "Listit", root_path, :class => 'brand' %>
   </li>
   <% if logged_in? %>
     <div class='nav_item'>
@@ -37,6 +37,9 @@
   </div>
 
   <% else #logged out %>
+  <div class='nav_item nav navbar-nav'>
+      <%= link_to 'Register', register_path, class: 'btn btn-small' %>
+    </div>
     <div class='nav_item nav navbar-nav'>
       <%= link_to 'Login', login_path, class: 'btn btn-success btn-small' %>
     </div>

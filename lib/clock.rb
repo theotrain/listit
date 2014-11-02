@@ -11,7 +11,7 @@ require 'clockwork'
 
 include Clockwork
 
-frequency_in_seconds = 60
+frequency_in_seconds = 90
 
 # Define the jobs
 handler do |job|
@@ -34,10 +34,10 @@ def seconds_to_days(sec)
   sec * (1.0/86400)
 end
 
-  
+
 def schedule_jobs
 
-  frequency_in_seconds = 60
+  frequency_in_seconds = 90
 
   now_time_utc = DateTime.now.utc
   send_items = Item.where("sms_time < ? AND active = ? AND sms_sent = ?", now_time_utc + seconds_to_days(frequency_in_seconds), true, false)
