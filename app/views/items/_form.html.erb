@@ -62,6 +62,7 @@
     <div id='item-form'>
       Can't schedule reminders. No valid phone number in <%= link_to 'user settings', edit_user_path(current_user) %>.
     </div>
+    <input name="checkbox[checked]" type="hidden" value="0">
   <% end %>
 
   <input id="offset_value" type="hidden" name="zone_offset" value="">
